@@ -6,7 +6,6 @@ void init_motor_pins(){
     DDRA = 0x0F;
     init_pwm0_phase_mode_non_inverted();
     init_pwm2_phase_mode_non_inverted();
-
 }
 void set_speed(unsigned char left_wheel, unsigned char right_wheel) {
     left_speed = left_wheel;

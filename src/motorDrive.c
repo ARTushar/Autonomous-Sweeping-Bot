@@ -12,7 +12,8 @@
 #include "uart_transmission.h"
 
 #define USART_BAUDRATE 9600
-#define RIGHT_ANGLE_ROTATION_DELAY 3450
+#define RIGHT_RIGHT_ANGLE_ROTATION_DELAY 1700
+#define LEFT_RIGHT_ANGLE_ROTATION_DELAY 1950
 
 static volatile int pulse = 0;
 static volatile int i = 0;
@@ -20,7 +21,7 @@ unsigned char previous_reading = 0;
 
 int main(void)
 {
-	int16_t rotation_flag = 0;
+	int8_t rotation_flag = 0;
 
 	unsigned char count_l = 0;
 	unsigned char count_r = 0;
@@ -34,7 +35,6 @@ int main(void)
 	sei();
 	init_motor_pins();
 	UART_init(USART_BAUDRATE);
-  // for reverse direction give negative value [-100, 100]
 	set_speed(70, 70);
 	while(1)
 	{
@@ -45,10 +45,9 @@ int main(void)
 		count_a = pulse/58;
 	
 		if(count_a < 20){
-			// rotate_right_90();
-			// rotate_right_90();
 			stop_left_motor();
 			stop_right_motor();
+			_delay_ms(500);
 			UART_transmit_char(1);
 			count_r = UART_receive_char();
 			UART_transmit_char(2);
@@ -57,39 +56,78 @@ int main(void)
 			if(rotation_flag==0) {
 				if(count_r>count_l) {
 					set_speed(70,5);
-					_delay_ms(RIGHT_ANGLE_ROTATION_DELAY);
+					_delay_ms(2*RIGHT_RIGHT_ANGLE_ROTATION_DELAY);
+					set_speed(0,0);
+					_delay_ms(500);
+					set_speed(70, 70);
 					rotation_flag = 1;
 				} else {
 					set_speed(5,70);
-					_delay_ms(RIGHT_ANGLE_ROTATION_DELAY);
+					_delay_ms(2*LEFT_RIGHT_ANGLE_ROTATION_DELAY);
+					set_speed(0,0);
+					_delay_ms(500);
 					rotation_flag = 2;
-				}
-			}
-			else if(rotation_flag==2) {
-				if(count_r>20) {
-					set_speed(70,5);
-					_delay_ms(RIGHT_ANGLE_ROTATION_DELAY);
-					rotation_flag = 1;
-				} else {
-					stop_left_motor();
-					stop_right_motor();
-					rotation_flag = 4;
+					set_speed(70, 70);
 				}
 			}
 			else if(rotation_flag==1) {
 				if(count_l>20) {
 					set_speed(5,70);
-					_delay_ms(RIGHT_ANGLE_ROTATION_DELAY);
-					rotation_flag = 2;
-				} else {
-					stop_left_motor();
-					stop_right_motor();
-					rotation_flag = 4;
-				}
+					_delay_ms(LEFT_RIGHT_ANGLE_ROTATION_DELAY);
+					UART_transmit_char(1);
+					count_r = UART_receive_char();
+					if(count_r>60) {
+						set_speed(70, 70);
+						_delay_ms(900);
+						set_speed(70,5);
+						_delay_ms(RIGHT_RIGHT_ANGLE_ROTATION_DELAY);
+						set_speed(70, 70);
+						_delay_ms(2700);
+						set_speed(70,5);
+						_delay_ms(RIGHT_RIGHT_ANGLE_ROTATION_DELAY);
+						set_speed(70, 70);
+						_delay_ms(900);
+						set_speed(5,70);
+						_delay_ms(LEFT_RIGHT_ANGLE_ROTATION_DELAY);
+					}
+					else {
+						set_speed(5,70);
+						_delay_ms(LEFT_RIGHT_ANGLE_ROTATION_DELAY);
+						rotation_flag = 2;
+					}
+					set_speed(70,70);
+					
+				} 
 			}
-			if(rotation_flag<=3) {
-				set_speed(70,70);
+			else if(rotation_flag==2) {
+				if(count_r>20) {
+					set_speed(70,5);
+					_delay_ms(RIGHT_RIGHT_ANGLE_ROTATION_DELAY);
+					UART_transmit_char(2);
+					count_l = UART_receive_char();
+					if(count_l>60) {
+						set_speed(70, 70);
+						_delay_ms(900);
+						set_speed(5,70);
+						_delay_ms(LEFT_RIGHT_ANGLE_ROTATION_DELAY);
+						set_speed(70, 70);
+						_delay_ms(2700);
+						set_speed(5,70);
+						_delay_ms(LEFT_RIGHT_ANGLE_ROTATION_DELAY);
+						set_speed(70, 70);
+						_delay_ms(900);
+						set_speed(70,5);
+						_delay_ms(RIGHT_RIGHT_ANGLE_ROTATION_DELAY);
+					}
+					else {
+						set_speed(70,5);
+						_delay_ms(RIGHT_RIGHT_ANGLE_ROTATION_DELAY);
+						rotation_flag = 1;
+					}
+					set_speed(70,70);
+				} 
 			}
+			
 		} 
 		else if(count_a >= 20){
 			set_speed(70,70);
