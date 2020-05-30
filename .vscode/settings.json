@@ -1,6 +1,10 @@
 {
     "terminal.integrated.env.linux": {
-        "PATH": "/home/raju080/.platformio/penv/bin:/home/raju080/.platformio/penv:/home/raju080/.local/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PATH": "/home/raju080/.platformio/penv/bin:/home/raju080/.platformio/penv:/home/raju080/.local/bin:/home/raju080/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin",
+        "PLATFORMIO_CALLER": "vscode"
+    },
+    "terminal.integrated.env.windows": {
+        "PATH": "C:\\Users\\Tushar\\.platformio\\penv\\Scripts;C:\\Users\\Tushar\\.platformio\\penv;C:\\Python27\\;C:\\Python27\\Scripts;C:\\Program Files\\Java\\jdk-11.0.2\\bin;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python37-32\\Scripts\\;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python37-32\\;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python36-32\\Scripts\\;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python36-32\\;C:\\Users\\Tushar\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin;C:\\Program Files (x86)\\CodeBlocks\\MinGW\\lib;C:\\Program Files\\Git\\bin;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Microsoft VS Code\\bin;C:\\Python27\\;C:\\Python27\\Scripts;C:\\Program Files\\Java\\jdk-11.0.2\\bin;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python37-32\\Scripts\\;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python37-32\\;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python36-32\\Scripts\\;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Python\\Python36-32\\;C:\\Users\\Tushar\\AppData\\Local\\Microsoft\\WindowsApps;C:\\Program Files (x86)\\CodeBlocks\\MinGW\\bin;C:\\Program Files (x86)\\CodeBlocks\\MinGW\\lib;C:\\Program Files\\Git\\bin;C:\\Windows\\System32\\WindowsPowerShell\\v1.0;C:\\Users\\Tushar\\AppData\\Local\\Programs\\Microsoft VS Code\\bin",
         "PLATFORMIO_CALLER": "vscode"
     }
 }
